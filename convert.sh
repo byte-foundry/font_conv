@@ -1,5 +1,3 @@
-#!/usr/bin/env fontforge
-
 i=1
 format=".ttf"
 while ( i<$argc )
