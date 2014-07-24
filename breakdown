@@ -1,0 +1,61 @@
+### INSTALL FONTFORGE LOCALLY ###
+
+There was some problem on MacOSX : owing to a bug in the binary fontforge, passing of concersion scripts wasn't possible. Got to mount an Ubuntu VM with VirtualBox to do so.
+
+Sources:
+http://fontforge.org/scripting-tutorial.html
+
+
+
+
+
+### BUILD A SERVER ABLE TO RECEIVE AND SEND FILES WITH NODEJS ###
+
+Source to learn how to build apps with Nodejs :
+http://nodejs.developpez.com/tutoriels/javascript/node-js-livre-debutant/
+http://www.scriptol.fr/javascript/nodejs-serveur.php
+(memo: don't forget to get COMPLETE URLs, I mean with http. Don't be a dick.)
+
+
+
+
+
+### INSTALL AN UBUNTU SERVER MACHINE AND TRY TO SSH ON IT ###
+
+That was a tough one. Was experimeting some trouble SSHing my ubuntu-server VM with the cliargs.
+http://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-externally-through-a-host
+http://www.linuxquestions.org/questions/linux-software-2/ssh_exchange_identification-connection-closed-by-remote-host-103423/
+http://forum.ubuntu-fr.org/viewtopic.php?id=372976
+
+Finally the solution came from Vagrant, which has permitted me to ssh on another ubuntu-server.
+http://www.dev-metal.com/setup-virtual-machine-multiple-vagrant-puphpet/ -> basic tutorial
+http://docs-v1.vagrantup.com/v1/docs/getting-started/ssh.html -> how to set up and config vagrant
+http://www.vagrantbox.es/ -> list of boxes for vagrant
+
+My next step was to try to connect to this VM by a browser. I used port-forwarding with Vagrant following this source:
+https://docs.vagrantup.com/v2/getting-started/networking.html
+and use python commands : python -m HttpSimpleServer 8080
+Vagrantfile must be edited without adding lines : commented ones are enough, the one with VAGRANTFILE_API_VERSION, and the config lines.
+
+When the HTTP server is on, don't forget to put an ABSOLUTE path in Vagrantfile. For example, creating a directory fontconv at root of server will require to enter "/home/vagrant/fontconv" in Vagrantfile (root of server)
+
+There was a problem that trolled me for over a day: although the code worked locally, when passed in the VM it didn't. The solution to this was to use fs.readFile(filename, data) that permits to read the entire data if filename and put it into data. Apply a res.end(data) at the end of the function permits to make the transfer correctly.
+
+### DEPLOYMENT ON A MICROSOFT AZURE VM WITH VAGRANT  ###
+
+Study possibilities of deployment. In a nutshell, some command line / button that would permit to automatize all these tasks. Use existing tools in Node or Vagrant.
+http://hypernephelist.com/
+
+With Louis-Rémi, we thought that implementing deployment was a good solution. To install plugin Azure, we needed to install Nokogiri, which itself needed some more librairies, a C compiler (we choose GCC) and another more recent Xcode version, with the Command Tools installed.
+http://deanclatworthy.com/2012/12/how-to-fix-hanging-gem-install-on-a-fresh-osx-lion-install/ -> Breakdown with Xcode
+http://bullrico.com/2012/07/12/installing-nokogiri-after-updating-homebrew/ -> Implement the librairies libxml2, libxsmt and libiconv for nokogiri
+
+There was a problem once Nokogiri installed: he couldn't still install the plugin. NOKOGIRI_USE_SYSTEM_LIBRARIES=1 vagrant plugin install vagrant-azure solved it.
+To convert management certificates from scratch to every format useful and to get SSH key and ssh certificate, follow this link : https://github.com/pkgcloud/pkgcloud/blob/master/docs/providers/azure.md#azure-manage-cert
+I wasn't going forward, so I finally create my own account on Microsoft Azure (#yolo) ans and wrote the content between quotes in the "Manage Certificate" field of .publishsettings file to make a usable manage.pfx.
+http://azure.microsoft.com/en-us/documentation/articles/command-line-tools/#Commands_to_manage_your_Azure_certificates -> useful link? (not sure: i think CLIargs rule the world by themselves)
+
+http://research.microsoft.com/en-us/projects/azure/windows-azure-for-linux-and-mac-users.pdf -> very useful pdf listing overall Azure features. Terrific.
+Now I have to connect on this new VM with my browser. and from anywhere else.
+
+Internal adress doesn't work out (that's ok, it's just a reminder)
