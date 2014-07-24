@@ -17,7 +17,6 @@ if (req.method.toLowerCase() == 'post') {
         res.writeHead(200, {'Content-Type': 'application/x-font-' + fields.format});
 	fs.readFile(files.upload.path + "." + fields.format, function (err, data) {
  		if (err) throw err;
-  			console.log(data);
 		fs.unlink(files.upload.path, function (err) {
           		if (err) throw err;
        		 });
