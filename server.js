@@ -1,9 +1,8 @@
 var formidable = require('formidable'),
     http = require('http'),
     exec = require("child_process").exec,
-    fs = require("fs");
-
-
+    fs = require("fs"),
+    port = process.env.PORT || 8080;
 http.createServer(function(req, res) {
 if (req.method.toLowerCase() == 'post') {
     // parse a file upload
@@ -33,4 +32,4 @@ if (req.method.toLowerCase() == 'post') {
   }
 
     return;
-}).listen(8080);
+}).listen(port);
