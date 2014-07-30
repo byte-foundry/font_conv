@@ -1,10 +1,10 @@
 #! /bin/bash
 
-echo prototypo | sudo -S apt-get update
-sudo apt-get -y install npm
-sudo npm install pm2@latest -g
-sudo apt-get -y install fontforge
+apt-get update
+apt-get -y install npm
+npm install pm2@latest -g
+apt-get -y install fontforge
 npm install formidable
-sudo apt-get -y install nodejs
-sudo ln -s /usr/bin/nodejs /usr/bin/node
-sudo pm2 start server.js
+apt-get -y install nodejs
+ln -s /usr/bin/nodejs /usr/bin/node
+pm2 start fontconv/server.js
