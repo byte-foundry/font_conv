@@ -9,7 +9,7 @@ if (req.method.toLowerCase() == 'post') {
     var form = new formidable.IncomingForm();
 
     form.parse(req, function(err, fields, files) {
-    exec("fontforge -script fontconv/convert.sh -format \"." + fields.format + "\"" + " " + files.upload.path, function(error, stdout, stderr) {
+    exec("fontforge -script convert.sh -format \"." + fields.format + "\"" + " " + files.upload.path, function(error, stdout, stderr) {
         if (error !== null) {
           console.log('exec error: ' + error);
         }
