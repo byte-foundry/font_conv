@@ -13,8 +13,8 @@ Then you create a Vagrantfile in your project directory:
 and you fill it like you have to. Forexample, the fields should be filled as following:
 http://hypernephelist.com/2014/06/18/php-dev-box-with-vagrant.html
 
-And finally, you launch your VM (this may take a few minutes and seem to loop around the 'Looking for 22' phase, don't restart the installation)
-	vagrant up --provider=azure
+And finally, you can launch your VM (this may take a few minutes and seem to loop in the 'Looking for 22' phase, don't restart the installation)
+	vagrant up --provider=azure (if rsync causes an error, vagrant reload)
 If you need a bash script on your VM, it will be executed when you vagrant up. If you choose to modify this script, you'll just have to vagrant provision from your remote host to apply changes in your VM.
 
 IMPORTANT FOR MAC OS X USERS: You may encounter some issues installing the plugin. 
@@ -40,4 +40,8 @@ If you have another version of Nokogiri in your Vagrant folder, symlink it to th
 The first 'vagrant up --provider=azure' command will create the endpoints implemented in the azure.tcp.endpoints field in your Vagrantfile. 
 DO NOT TRY TO DELETE THAT ENDPOINT: indeed, when using vagrant reload, for some reason it does not create again this endpoint, and you'll have either to launch 'azure vm endpoint create {VM-Name} {public-port} {private-port} (and install azure command line tools with npm if they are not yet installed), or to destroy your vm and everything in it, and restart the installation from scratch (from vagrant plugin install actually)
 
+To delete properly your VM, the following tasks are recommanded :
+	- destroy VM with vagrant destroy
+	- delete Vagrantfile (rm Vagrantfile)
+	- delete your box (vagrant box remove {YourBoxName}
 
